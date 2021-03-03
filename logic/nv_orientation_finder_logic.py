@@ -282,15 +282,19 @@ class NVOrientationFinderLogic(GenericLogic):
         # self.sigSweepStarted.emit()
         self.theta_sweep_remaining = False
         
-        if np.abs(self.fit_phi["phi_tip"]) <= 90:
+        self.log.info("Phi value {:.1f}°".format(self.fit_phi["phi_tip"]))
+        
+        if np.abs(self.fit_phi["phi_tip"]) <= 180:
             self.phi_for_theta = self.fit_phi["phi_tip"]
         else:
-            div = np.floor(np.abs(self.fit_phi["phi_tip"])/180)
-            self.phi_for_theta = self.fit_phi["phi_tip"] - np.sign(self.fit_phi["phi_tip"])*div*180
-            if self.phi_for_theta > 90:
-                self.phi_for_theta = self.phi_for_theta - 180
-            elif self.phi_for_theta < 90:
-                self.phi_for_theta = self.phi_for_theta + 180
+            div = np.floor(np.abs(self.fit_phi["phi_tip"])/360)
+            self.phi_for_theta = self.fit_phi["phi_tip"] - np.sign(self.fit_phi["phi_tip"])*div*360
+#            if self.phi_for_theta > 90:
+#                self.phi_for_theta = self.phi_for_theta - 180
+#            elif self.phi_for_theta < 90:
+#                self.phi_for_theta = self.phi_for_theta + 180
+                
+        self.log.info("Converted phi value {:.1f}°".format(self.phi_for_theta))
 
         self.sigUpdateSweepAngles.emit("phi")
         self.start_theta_sweep()

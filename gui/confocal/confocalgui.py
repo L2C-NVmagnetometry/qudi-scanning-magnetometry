@@ -1345,7 +1345,7 @@ class ConfocalGui(GUIBase):
 
     def change_x_image_range(self):
         """ Adjust the image range for x in the logic. """
-        size_window = self._mw.x_range_InputWidget.value()
+        size_window = self._mw.x_window_InputWidget.value()
         offset = self._mw.x_offset_InputWidget.value()
         test = offset - size_window/2
         if test < self._scanning_logic.x_range[0]:
@@ -1366,7 +1366,7 @@ class ConfocalGui(GUIBase):
         """ Adjust the image range for y in the logic.
         """
         size_window = self._mw.y_window_InputWidget.value()
-        offset = self._mw.y_range_InputWidget.value()
+        offset = self._mw.y_offset_InputWidget.value()
         test = offset - size_window/2
         if test < self._scanning_logic.y_range[0]:
             offset = self._scanning_logic.y_range[0] + size_window/2

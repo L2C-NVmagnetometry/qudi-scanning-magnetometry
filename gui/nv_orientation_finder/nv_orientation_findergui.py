@@ -318,8 +318,8 @@ class NVOrientationFinderGUI(GUIBase):
         self._mw.doubleSpinBox_phi_for_theta_sweep.setEnabled(False)
         self._mw.doubleSpinBox_theta.setEnabled(False)
         self._mw.doubleSpinBox_phi.setEnabled(False)
-        if self._orientation_logic.theta_phi_measurement:
-            self._mw.doubleSpinBox_phi0_theta_sweep.setEnabled(False)
+#        if self._orientation_logic.theta_phi_measurement:
+#            self._mw.doubleSpinBox_phi0_theta_sweep.setEnabled(False)
         return
 
 
@@ -450,7 +450,11 @@ class NVOrientationFinderGUI(GUIBase):
         """ Displays the theta or phi angle fixed for the sweep if changed by the logic.
         """
         if angle == "phi":
+            state = self._mw.doubleSpinBox_phi_for_theta_sweep.isEnabled()
+            self._mw.doubleSpinBox_phi_for_theta_sweep.setEnabled(True)
             self._mw.doubleSpinBox_phi_for_theta_sweep.setValue(self._orientation_logic.phi_for_theta)
+            self._mw.doubleSpinBox_phi_for_theta_sweep.setEnabled(state)
+            self.log.info("Changed phi for theta display")
         else:
             self._mw.doubleSpinBox_theta_for_phi_sweep.setValue(self._orientation_logic.theta_for_phi)
         return
